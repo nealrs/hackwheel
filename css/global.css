@@ -9,7 +9,7 @@
 
 #wheel {
   position: absolute;
-  top: 50%;
+  top: 550px;
   left: 50%;
   width: 600px;
   height: 600px;
@@ -27,7 +27,7 @@ button:focus {
 
 button#spin {
   position: absolute;
-  top: 50%;
+  top: 550px;
   left: 50%;
   width: 80px;
   height: 40px;
@@ -76,7 +76,7 @@ button#spin {
 
 .result {
   position: absolute;
-  top: 50%;
+  top: 500px;
   left: 50%;
   width: 500px;
   min-height: 150px;
