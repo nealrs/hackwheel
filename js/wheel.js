@@ -35,7 +35,7 @@
 		halfHeight = width / 2,
 
 		startAngle = 0,
-		arc = Math.PI / (restaurants.length / 2),
+		arc = Math.PI / (hackathons.length / 2),
 		spinTimeout = null,
 
 		isSpinning = false,
@@ -72,13 +72,13 @@
 		ctx.strokeStyle = "black";
 		ctx.font = "12px Helvetica, Arial";
 		
-		arc = Math.PI / (restaurants.length / 2);
+		arc = Math.PI / (hackathons.length / 2);
 		
 		//Write words on arc path
 		var str = "Click and Drag Mouse Clockwise!";
 
 		//Draw circle
-		restaurants.forEach(function(restaurant, i) {
+		hackathons.forEach(function(hack, i) {
 			angle = startAngle + i * arc;
 			ctx.fillStyle = colours.bgColour[i];
 			
@@ -94,9 +94,9 @@
 			ctx.translate(halfWidth + Math.cos(angle + arc / 2) * textRadius, 
 						halfHeight + Math.sin(angle + arc / 2) * textRadius);
 			ctx.rotate(angle + arc / 2 + Math.PI / 2);
-			text = restaurant.name;
+			text = hack.name;
 			//ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
-			rouletteWheel.printAt(ctx, text, -ctx.measureText(text).width / 2, 0, 14, ((2 * Math.PI * textRadius) / restaurants.length) - 10);
+			rouletteWheel.printAt(ctx, text, -ctx.measureText(text).width / 2, 0, 14, ((2 * Math.PI * textRadius) / hackathons.length) - 10);
 			ctx.restore();
 		});
 		
@@ -167,27 +167,20 @@
 			index = Math.floor((degrees % 360) / arcd);
 		}
 
-		var resultName = restaurants[index].name.split(' ').join('+'),
-			mapURL = "http://maps.google.com/maps/dir/",
-			originCoords = $('#latitude').val() + "," + $('#longitude').val();
-
+///// POPULATE POPUP WITH HACKATHON INFO HERE 
+		var resultName = hackathons[index].name.split(' ').join('+');
+		
 		//Display Result
 		var $result = $('.result');
-		$result.find('h2').html(restaurants[index].name);
-		$result.find('.vicinity').html(restaurants[index].vicinity);
+		$result.find('.fullname').html(hackathons[index].fullname);
+		$result.find('.img').attr("src", hackathons[index].img);
+		//$result.find('.img').html(hackathons[index].img);
+		$result.find('.tagline').html(hackathons[index].tagline);
+		$result.find('.prizes').html(hackathons[index].prizes);
+		$result.find('.deadline').html(hackathons[index].deadline);
+		$result.find('.link').attr("href", hackathons[index].link);
 
-		var $ratingString = " ";
-
-		if(restaurants[index].rating === null){
-			ratingString = "Rating: Unavailable";
-		}
-		else{
-			ratingString = "Rating: " + (restaurants[index].rating);
-		}
-		$result.find('.rating').html(ratingString);
-		$result.find('');
-		$result.find('.map').attr("href", mapURL + originCoords + "/" + resultName + "," + restaurants[index].vicinity + "/@" + restaurants[index].lat + "," + restaurants[index].lng);
-		
+//////		
 		ctx.restore();
 		
 		//Start confetti
